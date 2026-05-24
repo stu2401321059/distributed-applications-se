@@ -1,0 +1,778 @@
+openapi: 3.0.4
+info:
+  title: CasinoSystem
+  version: '1.0'
+paths:
+  /api/Casino:
+    get:
+      tags:
+        - Casino
+      summary: Извличане на списък с всички казина
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CasinoReadDto'
+    post:
+      tags:
+        - Casino
+      summary: Създаване на ново казино
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CasinoCreateDto'
+      responses:
+        '201':
+          description: Създадено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasinoReadDto'
+        '400':
+          description: Невалидни данни
+  '/api/Casino/{id}':
+    get:
+      tags:
+        - Casino
+      summary: Получаване на информация за казино по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasinoReadDto'
+        '404':
+          description: Не е намерено
+    put:
+      tags:
+        - Casino
+      summary: Обновяване на данните на казино по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CasinoUpdateDto'
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasinoReadDto'
+        '400':
+          description: Невалидни данни
+        '404':
+          description: Не е намерено
+    delete:
+      tags:
+        - Casino
+      summary: Изтриване на казино по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Изтрито
+        '404':
+          description: Не е намерено
+  '/api/Casino/name/{name}':
+    get:
+      tags:
+        - Casino
+      summary: Търсене на казина по име
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CasinoReadDto'
+  /api/Game:
+    get:
+      tags:
+        - Game
+      summary: Извличане на списък с всички игри
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameListReadDto'
+    post:
+      tags:
+        - Game
+      summary: Създаване на нова игра
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameCreateDto'
+      responses:
+        '201':
+          description: Създадено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameReadDto'
+        '400':
+          description: Невалидни данни
+  '/api/Game/{id}':
+    get:
+      tags:
+        - Game
+      summary: Получаване на информация за игра по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameReadDto'
+        '404':
+          description: Не е намерено
+    put:
+      tags:
+        - Game
+      summary: Обновяване на данните на игра по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameUpdateDto'
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameReadDto'
+        '400':
+          description: Невалидни данни
+        '404':
+          description: Не е намерено
+    delete:
+      tags:
+        - Game
+      summary: Изтриване на игра по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Изтрито
+        '404':
+          description: Не е намерено
+  '/api/Game/type/{type}':
+    get:
+      tags:
+        - Game
+      summary: Търсене на игри по тип
+      parameters:
+        - name: type
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameReadDto'
+  '/api/Game/casino/{casinoId}':
+    get:
+      tags:
+        - Game
+      summary: Получаване на всички игри от дадено казино
+      parameters:
+        - name: casinoId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameReadDto'
+  /api/Player:
+    get:
+      tags:
+        - Player
+      summary: Извличане на списък с всички играчи
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerReadDto'
+    post:
+      tags:
+        - Player
+      summary: Създаване на нов профил на играч
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerCreateDto'
+      responses:
+        '201':
+          description: Създадено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerReadDto'
+        '400':
+          description: Невалидни данни
+  '/api/Player/{id}':
+    get:
+      tags:
+        - Player
+      summary: Получаване на информация за играч по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerReadDto'
+        '404':
+          description: Не е намерено
+    put:
+      tags:
+        - Player
+      summary: Обновяване на данните на играч по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerUpdateDto'
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerReadDto'
+        '400':
+          description: Невалидни данни
+        '404':
+          description: Не е намерено
+    delete:
+      tags:
+        - Player
+      summary: Изтриване на играч по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Изтрито
+        '404':
+          description: Не е намерено
+  '/api/Player/name/{name}':
+    get:
+      tags:
+        - Player
+      summary: Търсене на играчи по име
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerReadDto'
+  /api/Bet:
+    get:
+      tags:
+        - Bet
+      summary: Извличане на списък с всички залози
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BetReadDto'
+    post:
+      tags:
+        - Bet
+      summary: Създаване на нов залог
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BetCreateDto'
+      responses:
+        '201':
+          description: Създадено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BetReadDto'
+        '400':
+          description: Невалидни данни
+  '/api/Bet/{id}':
+    get:
+      tags:
+        - Bet
+      summary: Получаване на информация за залог по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BetReadDto'
+        '404':
+          description: Не е намерено
+    put:
+      tags:
+        - Bet
+      summary: Обновяване на данните на залог по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BetUpdateDto'
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BetReadDto'
+        '400':
+          description: Невалидни данни
+        '404':
+          description: Не е намерено
+    delete:
+      tags:
+        - Bet
+      summary: Изтриване на залог по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Изтрито
+        '404':
+          description: Не е намерено
+  '/api/Bet/player/{playerId}':
+    get:
+      tags:
+        - Bet
+      summary: Получаване на всички залози на конкретен играч
+      parameters:
+        - name: playerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Успешно
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BetReadDto'
+components:
+  schemas:
+    CasinoCreateDto:
+      type: object
+      required:
+        - name
+        - country
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 100
+        country:
+          type: string
+          minLength: 2
+          maxLength: 50
+        city:
+          type: string
+          maxLength: 50
+          nullable: true
+      additionalProperties: false
+    CasinoReadDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CasinoUpdateDto:
+      type: object
+      required:
+        - name
+        - country
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 100
+        country:
+          type: string
+          minLength: 2
+          maxLength: 50
+        city:
+          type: string
+          maxLength: 50
+          nullable: true
+      additionalProperties: false
+    GameCreateDto:
+      type: object
+      required:
+        - name
+        - type
+        - casinoId
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 50
+        type:
+          type: string
+          minLength: 2
+          maxLength: 50
+        minBet:
+          type: number
+          format: double
+          minimum: 1
+        casinoId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    GameListReadDto:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GameReadDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        minBet:
+          type: number
+          format: double
+        casinoId:
+          type: integer
+          format: int32
+        casino:
+          $ref: '#/components/schemas/CasinoReadDto'
+      additionalProperties: false
+    GameUpdateDto:
+      type: object
+      required:
+        - name
+        - type
+        - casinoI
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 50
+        type:
+          type: string
+          minLength: 2
+          maxLength: 5
+        minBet:
+          type: number
+          format: double
+          minimum: 1
+        casinoId:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PlayerCreateDto:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - age
+      properties:
+        firstName:
+          type: string
+          minLength: 2
+          maxLength: 50
+        lastName:
+          type: string
+          minLength: 2
+          maxLength: 50
+        age:
+          type: integer
+          format: int32
+          minimum: 18
+          maximum: 100
+        balance:
+          type: number
+          format: double
+          minimum: 0
+      additionalProperties: false
+    PlayerReadDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        age:
+          type: integer
+          format: int32
+        balance:
+          type: number
+          format: double
+      additionalProperties: false
+    PlayerUpdateDto:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - age
+      properties:
+        firstName:
+          type: string
+          minLength: 2
+          maxLength: 50
+        lastName:
+          type: string
+          minLength: 2
+          maxLength: 50
+        age:
+          type: integer
+          format: int32
+          minimum: 18
+          maximum: 100
+        balance:
+          type: number
+          format: double
+          minimum: 0
+      additionalProperties: false
+    BetCreateDto:
+      type: object
+      required:
+        - playerId
+        - gameId
+        - amount
+      properties:
+        playerId:
+          type: integer
+          format: int32
+        gameId:
+          type: integer
+          format: int32
+        amount:
+          type: number
+          format: double
+          minimum: 1
+        result:
+          type: string
+          enum:
+            - Win
+            - Lose
+      additionalProperties: false
+    BetReadDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        playerId:
+          type: integer
+          format: int32
+        gameId:
+          type: integer
+          format: int32
+        amount:
+          type: number
+          format: double
+        result:
+          type: string
+          nullable: true
+        player:
+          $ref: '#/components/schemas/PlayerReadDto'
+        game:
+          $ref: '#/components/schemas/GameReadDto'
+      additionalProperties: false
+    BetUpdateDto:
+      type: object
+      required:
+        - playerId
+        - gameId
+        - amount
+      properties:
+        playerId:
+          type: integer
+          format: int32
+        gameId:
+          type: integer
+          format: int32
+        amount:
+          type: number
+          format: double
+          minimum: 1
+        result:
+          type: string
+          enum:
+            - Win
+            - Lose
+      additionalProperties: false
+tags:
+  - name: Casino
+  - name: Game
+  - name: Player
+  - name: Bet
