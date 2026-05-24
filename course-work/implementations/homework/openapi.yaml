@@ -1,0 +1,560 @@
+openapi: 3.0.4
+info:
+  title: CasinoSystem
+  version: '1.0'
+paths:
+  /api/Casino:
+    get:
+      tags:
+        - Casino
+      summary: Get all casinos
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CasinoReadDto'
+    post:
+      tags:
+        - Casino
+      summary: Create casino
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CasinoCreateDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasinoReadDto'
+        '400':
+          description: Invalid data
+  /api/Casino/{id}:
+    get:
+      tags:
+        - Casino
+      summary: Get casino by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CasinoReadDto'
+        '404':
+          description: Casino not found
+    put:
+      tags:
+        - Casino
+      summary: Update casino
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CasinoUpdateDto'
+      responses:
+        '200':
+          description: Updated successfully
+        '400':
+          description: Invalid data
+        '404':
+          description: Casino not found
+    delete:
+      tags:
+        - Casino
+      summary: Delete casino
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted successfully
+        '404':
+          description: Casino not found
+  /api/Game:
+    get:
+      tags:
+        - Game
+      summary: Get all games
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameReadDto'
+
+    post:
+      tags:
+        - Game
+      summary: Create game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameCreateDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameReadDto'
+
+  /api/Game/{id}:
+    get:
+      tags:
+        - Game
+      summary: Get game by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameReadDto'
+        '404':
+          description: Game not found
+    put:
+      tags:
+        - Game
+      summary: Update game
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameUpdateDto'
+      responses:
+        '200':
+          description: Updated successfully
+    delete:
+      tags:
+        - Game
+      summary: Delete game
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted successfully
+  /api/Player:
+    get:
+      tags:
+        - Player
+      summary: Get all players
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlayerReadDto'
+    post:
+      tags:
+        - Player
+      summary: Create player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerCreateDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerReadDto'
+  /api/Player/{id}:
+    get:
+      tags:
+        - Player
+      summary: Get player by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerReadDto'
+    put:
+      tags:
+        - Player
+      summary: Update player
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerUpdateDto'
+      responses:
+        '200':
+          description: Updated successfully
+    delete:
+      tags:
+        - Player
+      summary: Delete player
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted successfully
+  /api/Bet:
+    get:
+      tags:
+        - Bet
+      summary: Get all bets
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BetReadDto'
+    post:
+      tags:
+        - Bet
+      summary: Create bet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BetCreateDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BetReadDto'
+  /api/Bet/{id}:
+    get:
+      tags:
+        - Bet
+      summary: Get bet by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BetReadDto'
+    put:
+      tags:
+        - Bet
+      summary: Update bet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BetUpdateDto'
+      responses:
+        '200':
+          description: Updated successfully
+    delete:
+      tags:
+        - Bet
+      summary: Delete bet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted successfully
+components:
+  schemas:
+    CasinoCreateDto:
+      type: object
+      required:
+        - name
+        - country
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 100
+        country:
+          type: string
+          minLength: 2
+          maxLength: 50
+        city:
+          type: string
+          nullable: true
+          maxLength: 50
+      additionalProperties: false
+    CasinoReadDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      additionalProperties: false
+    CasinoUpdateDto:
+      type: object
+      required:
+        - name
+        - country
+      properties:
+        name:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      additionalProperties: false
+    GameCreateDto:
+      type: object
+      required:
+        - name
+        - type
+        - casinoId
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 50
+        type:
+          type: string
+          minLength: 2
+          maxLength: 50
+        minBet:
+          type: number
+          format: double
+          minimum: 1
+        casinoId:
+          type: integer
+      additionalProperties: false
+    GameReadDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        minBet:
+          type: number
+          format: double
+        casinoId:
+          type: integer
+        casino:
+          $ref: '#/components/schemas/CasinoReadDto'
+      additionalProperties: false
+    GameUpdateDto:
+      type: object
+      required:
+        - name
+        - type
+        - casinoId
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        minBet:
+          type: number
+        casinoId:
+          type: integer
+      additionalProperties: false
+    PlayerCreateDto:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - age
+      properties:
+        firstName:
+          type: string
+          minLength: 2
+          maxLength: 50
+        lastName:
+          type: string
+          minLength: 2
+          maxLength: 50
+        age:
+          type: integer
+          minimum: 18
+          maximum: 100
+        balance:
+          type: number
+          format: double
+          minimum: 0
+      additionalProperties: false
+    PlayerReadDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: integer
+        balance:
+          type: number
+          format: double
+      additionalProperties: false
+    PlayerUpdateDto:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - age
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: integer
+        balance:
+          type: number
+      additionalProperties: false
+    BetCreateDto:
+      type: object
+      required:
+        - playerId
+        - gameId
+        - amount
+      properties:
+        playerId:
+          type: integer
+        gameId:
+          type: integer
+        amount:
+          type: number
+          format: double
+          minimum: 1
+        result:
+          type: string
+          enum:
+            - Win
+            - Lose
+      additionalProperties: false
+    BetReadDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        playerId:
+          type: integer
+        gameId:
+          type: integer
+        amount:
+          type: number
+          format: double
+        result:
+          type: string
+        player:
+          $ref: '#/components/schemas/PlayerReadDto'
+        game:
+          $ref: '#/components/schemas/GameReadDto'
+      additionalProperties: false
+    BetUpdateDto:
+      type: object
+      required:
+        - playerId
+        - gameId
+        - amount
+      properties:
+        playerId:
+          type: integer
+        gameId:
+          type: integer
+        amount:
+          type: number
+        result:
+          type: string
+      additionalProperties: false
+tags:
+  - name: Casino
+  - name: Game
+  - name: Player
+  - name: Bet
